@@ -2,9 +2,9 @@ export type SourceId =
   | "open-meteo"
   | "wttr"
   | "met-norway"
-  | "arpae-icon-2i"
-  | "dwd-icon-eu"
-  | "ecmwf-ifs";
+  | "open-meteo-it"
+  | "meteoblue"
+  | "openweather";
 
 export type CountryId = "global" | "italy";
 
@@ -114,27 +114,30 @@ export const SOURCES: readonly SourceMeta[] = [
     blurb: "Norwegian Meteorological Institute.",
   },
   {
-    id: "arpae-icon-2i",
-    name: "ARPAE ICON 2I",
-    url: "https://www.arpae.it/it/temi-ambientali/meteo",
+    id: "open-meteo-it",
+    name: "Open-Meteo",
+    url: "https://open-meteo.com/",
     accent: "#22c55e",
     country: "italy",
-    blurb: "Italian high-resolution model (ARPAE Emilia-Romagna).",
+    blurb:
+      "DWD ICON-EU + MeteoFrance AROME — Alpine terrain, local convective storms.",
   },
   {
-    id: "dwd-icon-eu",
-    name: "DWD ICON-EU",
-    url: "https://www.dwd.de/",
+    id: "meteoblue",
+    name: "Meteoblue",
+    url: "https://www.meteoblue.com/",
     accent: "#fbbf24",
     country: "italy",
-    blurb: "European model from Deutscher Wetterdienst.",
+    blurb:
+      "NEMS / mB MULTIMODEL — hyper-local microclimates (coastal & mountainous).",
   },
   {
-    id: "ecmwf-ifs",
-    name: "ECMWF IFS",
-    url: "https://www.ecmwf.int/",
+    id: "openweather",
+    name: "OpenWeather",
+    url: "https://openweathermap.org/",
     accent: "#ef4444",
     country: "italy",
-    blurb: "European Centre for Medium-Range Weather Forecasts.",
+    blurb:
+      "ECMWF-driven — pre-translated Italian descriptions for mobile apps.",
   },
 ] as const;

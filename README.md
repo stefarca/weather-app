@@ -1,12 +1,25 @@
 # Skycast
 
-A modern, multi-source weather app. Search any location and compare forecasts side-by-side from:
+A modern, multi-source weather app. Search any location and compare forecasts side-by-side.
+
+**Global sources** (no API key required):
 
 - **[Open-Meteo](https://open-meteo.com/)** — open weather forecast API
 - **[wttr.in](https://wttr.in/)** — console-friendly weather service (JSON mode)
 - **[MET Norway](https://api.met.no/)** — Norwegian Meteorological Institute
 
-All three are free and require no API key.
+**Italy sources** — prioritize European NWP models over global GFS:
+
+- **[Open-Meteo](https://open-meteo.com/)** — DWD ICON-EU (Alpine terrain, local convective storms)
+- **[Meteoblue](https://www.meteoblue.com/)** — NEMS / mB MULTIMODEL (hyper-local microclimates)
+- **[OpenWeather](https://openweathermap.org/)** — ECMWF-driven, with Italian descriptions
+
+Meteoblue and OpenWeather require API keys. Create a `.env.local`:
+
+```
+VITE_METEOBLUE_API_KEY=your_meteoblue_key
+VITE_OPENWEATHER_API_KEY=your_openweather_key
+```
 
 ## Stack
 
