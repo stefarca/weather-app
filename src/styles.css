@@ -295,6 +295,48 @@ button {
   color: var(--text-muted);
 }
 
+/* Country selector ----------------------------------------------------- */
+
+.country-selector {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 18px;
+}
+.country-pills {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  gap: 2px;
+}
+.country-pill {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.country-pill:hover {
+  color: var(--text);
+}
+.country-pill.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+}
+.country-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
 /* Sources / unit toggle ----------------------------------------------- */
 
 .sources {

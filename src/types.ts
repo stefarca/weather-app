@@ -1,4 +1,12 @@
-export type SourceId = "open-meteo" | "wttr" | "met-norway";
+export type SourceId =
+  | "open-meteo"
+  | "wttr"
+  | "met-norway"
+  | "arpae-icon-2i"
+  | "dwd-icon-eu"
+  | "ecmwf-ifs";
+
+export type CountryId = "global" | "italy";
 
 export type TempUnit = "c" | "f";
 
@@ -64,7 +72,21 @@ export interface SourceMeta {
   name: string;
   url: string;
   accent: string;
+  country: CountryId;
+  /** Short blurb shown as tooltip / aria description */
+  blurb?: string;
 }
+
+export interface CountryMeta {
+  id: CountryId;
+  label: string;
+  flag: string;
+}
+
+export const COUNTRIES: readonly CountryMeta[] = [
+  { id: "global", label: "Global", flag: "🌍" },
+  { id: "italy", label: "Italy", flag: "🇮🇹" },
+] as const;
 
 export const SOURCES: readonly SourceMeta[] = [
   {
@@ -72,17 +94,47 @@ export const SOURCES: readonly SourceMeta[] = [
     name: "Open-Meteo",
     url: "https://open-meteo.com/",
     accent: "#60a5fa",
+    country: "global",
+    blurb: "Aggregated multi-model forecast.",
   },
   {
     id: "wttr",
     name: "wttr.in",
     url: "https://wttr.in/",
     accent: "#f472b6",
+    country: "global",
+    blurb: "Console-friendly weather service.",
   },
   {
     id: "met-norway",
     name: "MET Norway",
     url: "https://api.met.no/",
     accent: "#34d399",
+    country: "global",
+    blurb: "Norwegian Meteorological Institute.",
+  },
+  {
+    id: "arpae-icon-2i",
+    name: "ARPAE ICON 2I",
+    url: "https://www.arpae.it/it/temi-ambientali/meteo",
+    accent: "#22c55e",
+    country: "italy",
+    blurb: "Italian high-resolution model (ARPAE Emilia-Romagna).",
+  },
+  {
+    id: "dwd-icon-eu",
+    name: "DWD ICON-EU",
+    url: "https://www.dwd.de/",
+    accent: "#fbbf24",
+    country: "italy",
+    blurb: "European model from Deutscher Wetterdienst.",
+  },
+  {
+    id: "ecmwf-ifs",
+    name: "ECMWF IFS",
+    url: "https://www.ecmwf.int/",
+    accent: "#ef4444",
+    country: "italy",
+    blurb: "European Centre for Medium-Range Weather Forecasts.",
   },
 ] as const;
