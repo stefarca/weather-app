@@ -105,7 +105,9 @@ export default function App() {
       <main className="app">
         <header className="hero">
           <h1 className="brand">
-            <span className="brand-icon" aria-hidden="true">⛅</span>
+            <span className="brand-icon" aria-hidden="true">
+              ⛅
+            </span>
             <span>Skycast</span>
           </h1>
           <p className="tagline">
@@ -141,18 +143,22 @@ export default function App() {
 
         {!location && (
           <section className="empty-state glass">
-            <div className="empty-icon" aria-hidden="true">🌍</div>
+            <div className="empty-icon" aria-hidden="true">
+              🌍
+            </div>
             <h3>Search a location to begin</h3>
             <p>
-              Try "Lisbon", "Tokyo", or use the location button to detect
-              where you are.
+              Try "Lisbon", "Tokyo", or use the location button to detect where
+              you are.
             </p>
           </section>
         )}
 
         {location && visibleSources.length === 0 && (
           <section className="empty-state glass">
-            <div className="empty-icon" aria-hidden="true">🔌</div>
+            <div className="empty-icon" aria-hidden="true">
+              🔌
+            </div>
             <h3>No sources selected</h3>
             <p>Enable at least one source above to see forecasts.</p>
           </section>

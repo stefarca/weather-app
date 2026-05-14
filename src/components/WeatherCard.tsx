@@ -74,7 +74,10 @@ export function WeatherCard({ source, unit, state }: WeatherCardProps) {
 
           <div className="stats">
             {state.data.current.humidity != null && (
-              <Stat label="Humidity" value={`${Math.round(state.data.current.humidity)}%`} />
+              <Stat
+                label="Humidity"
+                value={`${Math.round(state.data.current.humidity)}%`}
+              />
             )}
             {state.data.current.windKph != null && (
               <Stat
@@ -96,7 +99,10 @@ export function WeatherCard({ source, unit, state }: WeatherCardProps) {
             )}
             {state.data.current.uvIndex != null &&
               !Number.isNaN(state.data.current.uvIndex) && (
-                <Stat label="UV" value={state.data.current.uvIndex.toFixed(0)} />
+                <Stat
+                  label="UV"
+                  value={state.data.current.uvIndex.toFixed(0)}
+                />
               )}
           </div>
 
