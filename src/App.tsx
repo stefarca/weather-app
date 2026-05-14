@@ -192,11 +192,7 @@ export default function App() {
               MET Norway
             </a>{" "}
             ·{" "}
-            <a
-              href="https://www.meteoblue.com/"
-              target="_blank"
-              rel="noopener"
-            >
+            <a href="https://www.meteoblue.com/" target="_blank" rel="noopener">
               Meteoblue
             </a>{" "}
             ·{" "}
