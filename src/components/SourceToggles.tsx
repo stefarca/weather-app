@@ -1,7 +1,7 @@
-import type { SourceId, TempUnit } from "../types";
-import { SOURCES } from "../types";
+import type { SourceId, SourceMeta, TempUnit } from "../types";
 
 interface SourceTogglesProps {
+  sources: readonly SourceMeta[];
   enabled: Set<SourceId>;
   onToggle: (id: SourceId, enabled: boolean) => void;
   unit: TempUnit;
@@ -9,6 +9,7 @@ interface SourceTogglesProps {
 }
 
 export function SourceToggles({
+  sources,
   enabled,
   onToggle,
   unit,
@@ -18,12 +19,13 @@ export function SourceToggles({
     <div className="sources">
       <span className="sources-label">Sources</span>
       <div className="source-toggles">
-        {SOURCES.map((s) => {
+        {sources.map((s) => {
           const checked = enabled.has(s.id);
           return (
             <label
               key={s.id}
               className={`toggle${checked ? " checked" : ""}`}
+              title={s.blurb}
             >
               <input
                 type="checkbox"

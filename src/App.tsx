@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { SearchBar } from "./components/SearchBar";
 import { SourceToggles } from "./components/SourceToggles";
+import { CountrySelector } from "./components/CountrySelector";
 import { WeatherCard } from "./components/WeatherCard";
 import { SOURCE_FETCHERS } from "./services/sources";
 import type {
+  CountryId,
   Location,
   SourceForecast,
   SourceId,
@@ -16,21 +18,28 @@ type CardState =
   | { status: "error"; error: string }
   | { status: "ready"; data: SourceForecast };
 
-const ALL_IDS: SourceId[] = SOURCES.map((s) => s.id);
+function sourcesForCountry(country: CountryId) {
+  return SOURCES.filter((s) => s.country === country);
+}
 
 export default function App() {
   const [location, setLocation] = useState<Location | null>(null);
+  const [country, setCountry] = useState<CountryId>("global");
   const [enabled, setEnabled] = useState<Set<SourceId>>(
-    () => new Set(ALL_IDS)
+    () => new Set(sourcesForCountry("global").map((s) => s.id))
   );
   const [unit, setUnit] = useState<TempUnit>("c");
   const [cards, setCards] = useState<Record<SourceId, CardState | undefined>>(
     {} as Record<SourceId, CardState | undefined>
   );
 
+  const countrySources = useMemo(() => sourcesForCountry(country), [country]);
+
   useEffect(() => {
     if (!location) return;
-    const enabledIds = Array.from(enabled);
+    const enabledIds = countrySources
+      .map((s) => s.id)
+      .filter((id) => enabled.has(id));
     if (!enabledIds.length) {
       setCards({} as Record<SourceId, CardState | undefined>);
       return;
@@ -62,7 +71,7 @@ export default function App() {
     }
 
     return () => ctrl.abort();
-  }, [location, enabled]);
+  }, [location, enabled, countrySources]);
 
   function toggleSource(id: SourceId, on: boolean) {
     setEnabled((prev) => {
@@ -73,9 +82,15 @@ export default function App() {
     });
   }
 
+  function changeCountry(next: CountryId) {
+    if (next === country) return;
+    setCountry(next);
+    setEnabled(new Set(sourcesForCountry(next).map((s) => s.id)));
+  }
+
   const visibleSources = useMemo(
-    () => SOURCES.filter((s) => enabled.has(s.id)),
-    [enabled]
+    () => countrySources.filter((s) => enabled.has(s.id)),
+    [countrySources, enabled]
   );
 
   return (
@@ -90,7 +105,9 @@ export default function App() {
       <main className="app">
         <header className="hero">
           <h1 className="brand">
-            <span className="brand-icon" aria-hidden="true">⛅</span>
+            <span className="brand-icon" aria-hidden="true">
+              ⛅
+            </span>
             <span>Skycast</span>
           </h1>
           <p className="tagline">
@@ -100,7 +117,9 @@ export default function App() {
 
         <section className="search-panel glass">
           <SearchBar onSelect={setLocation} />
+          <CountrySelector value={country} onChange={changeCountry} />
           <SourceToggles
+            sources={countrySources}
             enabled={enabled}
             onToggle={toggleSource}
             unit={unit}
@@ -124,18 +143,22 @@ export default function App() {
 
         {!location && (
           <section className="empty-state glass">
-            <div className="empty-icon" aria-hidden="true">🌍</div>
+            <div className="empty-icon" aria-hidden="true">
+              🌍
+            </div>
             <h3>Search a location to begin</h3>
             <p>
-              Try "Lisbon", "Tokyo", or use the location button to detect
-              where you are.
+              Try "Lisbon", "Tokyo", or use the location button to detect where
+              you are.
             </p>
           </section>
         )}
 
         {location && visibleSources.length === 0 && (
           <section className="empty-state glass">
-            <div className="empty-icon" aria-hidden="true">🔌</div>
+            <div className="empty-icon" aria-hidden="true">
+              🔌
+            </div>
             <h3>No sources selected</h3>
             <p>Enable at least one source above to see forecasts.</p>
           </section>
@@ -167,6 +190,18 @@ export default function App() {
             ·{" "}
             <a href="https://api.met.no/" target="_blank" rel="noopener">
               MET Norway
+            </a>{" "}
+            ·{" "}
+            <a href="https://www.arpae.it/" target="_blank" rel="noopener">
+              ARPAE
+            </a>{" "}
+            ·{" "}
+            <a href="https://www.dwd.de/" target="_blank" rel="noopener">
+              DWD
+            </a>{" "}
+            ·{" "}
+            <a href="https://www.ecmwf.int/" target="_blank" rel="noopener">
+              ECMWF
             </a>
           </p>
         </footer>

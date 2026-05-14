@@ -1,7 +1,7 @@
 import type { TempUnit } from "../types";
 
 export function cToUnit(c: number, unit: TempUnit): number {
-  return unit === "f" ? c * 9 / 5 + 32 : c;
+  return unit === "f" ? (c * 9) / 5 + 32 : c;
 }
 
 export function formatTemp(c: number, unit: TempUnit, digits = 0): string {
