@@ -192,16 +192,20 @@ export default function App() {
               MET Norway
             </a>{" "}
             ·{" "}
-            <a href="https://www.arpae.it/" target="_blank" rel="noopener">
-              ARPAE
+            <a
+              href="https://www.meteoblue.com/"
+              target="_blank"
+              rel="noopener"
+            >
+              Meteoblue
             </a>{" "}
             ·{" "}
-            <a href="https://www.dwd.de/" target="_blank" rel="noopener">
-              DWD
-            </a>{" "}
-            ·{" "}
-            <a href="https://www.ecmwf.int/" target="_blank" rel="noopener">
-              ECMWF
+            <a
+              href="https://openweathermap.org/"
+              target="_blank"
+              rel="noopener"
+            >
+              OpenWeather
             </a>
           </p>
         </footer>
